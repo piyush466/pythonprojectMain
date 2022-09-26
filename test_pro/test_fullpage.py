@@ -1,6 +1,7 @@
 import time
 
 from selenium import webdriver
+from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
@@ -27,6 +28,17 @@ def dropdown():
     sel = Select(driver.find_element(By.XPATH, "//select[@id='dropdown-class-example']"))
     sel.select_by_visible_text("Option2")
 dropdown()
+
+#scroll down
+driver.execute_script("window.scrollTo(0,300)")
+
+#mouse hover
+action = ActionChains(driver)
+mouse = driver.find_element(By.XPATH, "//button[@id='mousehover']")
+action.move_to_element(mouse).perform()
+time.sleep(2)
+driver.execute_script("window.scrollTo(300,0)")
+
 
 
 
@@ -56,19 +68,32 @@ alert()
 
 #suggesion drop down with using implisitly wait and explicitly wait
 
-driver.find_element(By.CSS_SELECTOR, "#autocomplete").send_keys("in")
-driver.implicitly_wait(10)
-
-contry = driver.find_elements(By.XPATH, "//li[@class='ui-menu-item']")
-def test_contry():
-    print("Radio button is exicute one by one")
-    for con in contry:
-        print()
-        name = con.find_element(By.XPATH, "div").text
-        if name == "India":
-            con.click()
+# driver.find_element(By.CSS_SELECTOR, "#autocomplete").send_keys("in")
+# driver.implicitly_wait(10)
+#
+# contry = driver.find_elements(By.XPATH, "//li[@class='ui-menu-item']")
+#
+# def test_contry():
+#     print("Radio button is exicute one by one")
+#     for con in contry:
+#         name = con.find_element(By.XPATH, "div").text
+#         if name == "India":
+#             con.click()
 
 time.sleep(3)
+#
+# #handle new window
+driver.find_element(By.LINK_TEXT, "Open Tab").click()
+window = driver.window_handles
+
+driver.switch_to.window(window[1])
+print(driver.title)
+time.sleep(2)
+driver.switch_to.window(window[0])
+print(driver.title)
+
+
+
 
 
 
