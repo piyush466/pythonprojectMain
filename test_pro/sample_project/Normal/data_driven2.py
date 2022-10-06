@@ -3,9 +3,11 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 
 import XLutils
-
+option = webdriver.ChromeOptions()
+option.add_argument("--start-maximized")
+option.add_argument("--disable-notifications")
 ser = Service(r"C:\Users\Cliffex-Lead\Desktop\New-folder\chromedriver.exe")
-driver = webdriver.Chrome(service=ser)
+driver = webdriver.Chrome(service=ser,options=option)
 driver.get("https://demo.guru99.com/test/newtours/")
 path = r"C:\Users\Cliffex-Lead\Documents\practise.xlsx"
 row = XLutils.getRowCount(path, "Sheet1")
